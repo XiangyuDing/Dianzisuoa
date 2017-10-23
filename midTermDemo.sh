@@ -1,22 +1,21 @@
 #!/bin/bash
 
-./record.sh
+echo "************************"
+echo "**** Mid Term Demo ******"
+echo "************************"
+
+printf "\n\nRunning audio demo:\n"
+
+./record.sh temp/demo.wav
 
 ls temp/
 
-nodejs ./examples/google-audio-api/speech/recognize.js sync temp/b-01.wav -r 48000
+./transcibeAudio.sh temp/$(ls temp | sort -n | head -1)
 
-rm ./temp/*
+rm temp/*
 
 ls temp/
 
+printf "\n\nRunning keypad demo:\n"
 
-
-
-
-
-
-
-
-
-
+./examples/keypad/keypad.py
