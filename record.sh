@@ -1,0 +1,1 @@
+arecord -d4 -f dat -t wav -r 48000 -c 2 | sox - -b16 -r16k -c1 -t wav - | flac - -o message.flac
