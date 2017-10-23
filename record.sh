@@ -1,1 +1,3 @@
-arecord -d4 -f dat -t wav -r 48000 -c 2 | sox - -b16 -r16k -c1 -t wav - | flac - -o message.flac
+#!/bin/bash
+
+arecord -D plughw:0,0 -d 5 -r 16 -f S16_LE | flac - -f --best --sample-rate 16000 -o file.flac
