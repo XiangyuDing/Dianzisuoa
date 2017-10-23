@@ -54,7 +54,7 @@ gcloudExists() {
 	# gcloud exists then 
 	echo "gcloud installed."
     else
-	echo "Install gcloud using instructions on https://cloud.google.com/sdk/downloads#linux"
+	echo "Install gcloud using instructions on https://cloud.google.com/sdk/downloads#linux . Then follow steps 4 and 5 of Prerequisites at https://github.com/GoogleCloudPlatform/nodejs-docs-samples/blob/master/README.md#prerequisites"
     fi
 }
 

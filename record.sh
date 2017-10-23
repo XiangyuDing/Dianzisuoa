@@ -1,3 +1,4 @@
 #!/bin/bash
 
-arecord -D plughw:0,0 -d 5 -r 16 -f S16_LE | flac - -f --best --sample-rate 16000 -o file.flac
+# arecord -f cd -t wav | flac - -o out.flac
+arecord -f DAT --channels=1 --duration=5 -D sysdefault:CARD=1 temp/b.wav
