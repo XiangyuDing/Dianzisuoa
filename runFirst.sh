@@ -6,27 +6,17 @@
 
 # check if sox is installed if not install 
 
-soxExists() {
-    if hash sox 2>/dev/null; then
-	# sox exists then 
-	echo "sox installed."
+arecordExists() {
+    if hash arecord 2>/dev/null; then
+	# arecord exists then 
+	echo "arecord installed."
     else
-	echo "Install sox using: sudo apt-get install sox"
+	echo "Install arecord. Don't yet know how this will be done. It should be installed by default on your Raspberry Pi."
     fi
 }
 
-soxExists
+arecordExists
 
-flacExists() {
-    if hash flac 2>/dev/null; then
-	# sox exists then 
-	echo "flac installed."
-    else
-	echo "Install flac using: sudo apt-get install flac"
-    fi
-}
-
-flacExists
 
 ##### for the google auido api ##### 
 
