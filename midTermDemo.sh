@@ -1,4 +1,5 @@
 #!/bin/bash
+# this assumes that the audio device is connected and there is internet connection
 
 echo "************************"
 echo "**** Mid Term Demo ******"
