@@ -19,4 +19,5 @@ ls temp/
 
 printf "\n\nRunning keypad demo:\n"
 
-./examples/keypad/keypad.py
+# ./examples/keypad/keypad.py
+ ./keypadAndStepMotor.sh
