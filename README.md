@@ -9,4 +9,4 @@ There are additional instructions in that file on how to get the google platform
 The required parameters to run the Google Audio API are in the `midTerm.sh` file.
 
 ## Main
-Once everything is installed and the audio device is connected you can run the `midTermDemo.sh` file. Press `^C` after recording english after 5 seconds. This will then output what Google thinks you said.
+Once everything is installed, the audio device and step motor is connected you can run the `midTermDemo.sh` file. Press `^C` after recording english after 5 seconds. This will then output what Google thinks you said.
