@@ -56,6 +56,14 @@ def main():
         wf.setframerate(RATE)
         wf.writeframes(b''.join(data_frames))
         wf.close()
+        
+        text = 'hello'
+        proc = subprocess.Popen(
+            ['./transcibeAudio.sh', WAV_FILENAME],stdout=subprocess.PIPE)
+
+        result = proc.stdout.read()
+        print result
+        proc.wait()
 
     except KeyboardInterrupt:
         print("\nShutdown requested...exiting")
