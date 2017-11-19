@@ -7,11 +7,68 @@ import tkinter as tk
 from tkinter import messagebox
 import RPi.GPIO as GPIO
 import time
+import sys, traceback
+import subprocess
+import time
+import os
+import signal
+import pyaudio, wave
 
+## pin information for GPIO
 IN1 = 11    # pin11
 IN2 = 12
 IN3 = 13
 IN4 = 15
+
+## record audio code
+BUFFER_SIZE = 1024
+REC_SECONDS = 5
+RATE = 48000
+WAV_FILENAME = "temp.wav"
+FORMAT = pyaudio.paInt16
+
+def record():
+     pa = pyaudio.PyAudio()
+     for i in range(pa.get_device_count()):
+     dev = pa.get_device_info_by_index(i)
+     print((i,dev['name'],dev['maxInputChannels']))
+
+    stream = pa.open(
+        format = FORMAT,
+        input = True,
+        channels = 1,
+        rate = RATE,
+        input_device_index = 2,
+        frames_per_buffer = BUFFER_SIZE
+    )
+
+    #run recording
+    print('Recording...')
+    data_frames = []
+    toRange = int(RATE/BUFFER_SIZE * REC_SECONDS)
+    for f in range(0, toRange):
+        data = stream.read(BUFFER_SIZE)
+        data_frames.append(data)
+    print('Finished recording...')
+    stream.stop_stream()
+    stream.close()
+    pa.terminate()
+
+    wf = wave.open(WAV_FILENAME, 'wb')
+    wf.setnchannels(1)
+    wf.setsampwidth(pa.get_sample_size(FORMAT))
+    wf.setframerate(RATE)
+    wf.writeframes(b''.join(data_frames))
+    wf.close()
+
+    text = 'hello'
+    proc = subprocess.Popen(
+        ['./transcibeAudio.sh', WAV_FILENAME],stdout=subprocess.PIPE)
+
+    result = proc.stdout.read()
+    print result
+
+    return result
 
 #step motor set up
 def setStep(w1, w2, w3, w4):
@@ -64,11 +121,12 @@ keypad_determine=0
 voice_correct_phrase = 'open the door' # default passcode
 
 def start_recording():
-   voice_phrase = 'abcd' #call voice record & google translation function 
+   voice_phrase = record().lower() ## 'abcd' #call voice record & google translation function
+   
    global keypad_determine
    global voice_increment
    
-   if (voice_correct_phrase == voice_phrase):
+   if (voice_phrase.startswith(voice_correct_phrase.lower())):
       unlock_determine=1
    else:
       unlock_determine=0
